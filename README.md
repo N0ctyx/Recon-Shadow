@@ -19,26 +19,13 @@ ReconShadow: Stealth Reconnaissance &amp; Vulnerability Discovery
 
 [![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey.svg)]()
 [![Version](https://img.shields.io/badge/Version-4.0-red.svg)]()
 
 🇹🇳 **Made with ❤️ in Tunisia - Proud Tunisian Hacker** 🇹🇳
 
 </div>
 
-## 📋 Table of Contents
 
-- [About](#about)
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Examples](#examples)
-- [Output](#output)
-- [Requirements](#requirements)
-- [Contributing](#contributing)
-- [Disclaimer](#disclaimer)
-- [License](#license)
-- [Author](#author)
 
 ## 🎯 About
 
@@ -87,8 +74,7 @@ ReconShadow: Stealth Reconnaissance &amp; Vulnerability Discovery
 - **Custom Payloads**: Extensible vulnerability detection patterns
 
 ### 📊 Comprehensive Reporting
-- **PDF Reports**: Professional formatted reports with charts and summaries
-- **Excel Export**: Detailed spreadsheets with all discovered data
+- **TXT Reports**: Professional formatted reports with charts and summaries
 - **Multiple Formats**: Separate files for different scan types
 - **Timestamp Tracking**: All reports include scan timestamps and metadata
 
@@ -141,7 +127,7 @@ The tool provides an interactive menu with the following options:
 4. **URL Crawl** - Web application URL discovery
 5. **Vulnerability Scan** - Security vulnerability detection
 6. **Full Scan** - Complete reconnaissance (all modules)
-7. **Generate Report** - Create comprehensive PDF/Excel reports
+7. **Generate Report** - Create comprehensive .txt reports
 8. **Exit** - Quit the application
 
 ### Command Line Arguments
