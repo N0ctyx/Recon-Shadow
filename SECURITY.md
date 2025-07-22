@@ -16,52 +16,9 @@ We provide security updates for the following versions:
 
 ## 🚨 Reporting a Vulnerability
 
-### How to Report
 
-**DO NOT** report security vulnerabilities through public GitHub issues, discussions, or pull requests.
 
-Instead, please report security vulnerabilities by emailing us at:
-**[security@reconshadow.com]** (Replace with actual email)
 
-### What to Include
-
-Please include the following information in your report:
-
-1. **Vulnerability Description**
-   - Clear description of the security issue
-   - Type of vulnerability (e.g., code injection, privilege escalation)
-   - Affected components or functions
-
-2. **Impact Assessment**
-   - Potential impact of the vulnerability
-   - Attack scenarios
-   - Affected user types
-
-3. **Reproduction Steps**
-   - Detailed steps to reproduce the vulnerability
-   - Proof of concept code (if applicable)
-   - Screenshots or logs (if relevant)
-
-4. **Environment Details**
-   - ReconShadow version
-   - Operating system and version
-   - Python version
-   - Any relevant configuration
-
-5. **Suggested Fix** (Optional)
-   - Proposed solution or mitigation
-   - Code patches (if available)
-
-### Response Timeline
-
-- **Initial Response**: Within 48 hours
-- **Vulnerability Assessment**: Within 7 days
-- **Fix Development**: Within 30 days (depending on severity)
-- **Public Disclosure**: After fix is released and users have time to update
-
-### Severity Levels
-
-We classify vulnerabilities using the following severity levels:
 
 #### 🔴 Critical
 - Remote code execution
