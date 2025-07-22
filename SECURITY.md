@@ -200,7 +200,7 @@ We believe in working with the security community to improve ReconShadow's secur
 
 For security-related inquiries:
 
-- **Security Email**: [security@reconshadow.com] (Replace with actual)
+- **Security Email**: noctyx-sec@mail.ru
 - **General Issues**: GitHub Issues (for non-security bugs)
 - **Discussions**: GitHub Discussions (for general questions)
 
