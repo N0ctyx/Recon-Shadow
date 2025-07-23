@@ -1,0 +1,12 @@
+# ReconShadow v4.0 - Ready to Use! 
+ 
+## How to Use: 
+1. Double-click Launch_GUI.bat for graphical interface 
+2. Double-click Launch_CLI.bat for command line interface 
+3. Enter a target domain when prompted 
+4. Follow the on-screen instructions 
+ 
+## Legal Notice: 
+Only use on domains you own or have permission to test! 
+ 
+Made with love in Tunisia by N0ctyx 
