@@ -14,7 +14,7 @@ ReconShadow v4.1 Enhanced is a comprehensive reconnaissance and vulnerability di
 ## Installation
 ```bash
 git clone https://github.com/yourusername/ReconShadow-v4.1-Enhanced.git
-cd ReconShadow-v4.1-Enhanced
+cd Recon-shadow
 pip install -r requirements.txt
 python reconshadow.py
 ```
