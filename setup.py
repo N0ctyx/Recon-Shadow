@@ -1,97 +1,209 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
-ReconShadow v4.0 - Enhanced Edition for Bug Bounty
-Setup script for pip installation
+ReconShadow v4.0 - Setup Script
+Automated setup and executable builder for Windows
 """
 
-from setuptools import setup, find_packages
+import os
+import sys
+import subprocess
+import shutil
 from pathlib import Path
 
-# Read the contents of README file
-this_directory = Path(__file__).parent
-long_description = (this_directory / "README.md").read_text(encoding='utf-8')
+def install_requirements():
+    """Install required packages"""
+    print("🔧 Installing requirements...")
+    try:
+        subprocess.check_call([sys.executable, '-m', 'pip', 'install', '-r', 'requirements.txt'])
+        print("✅ Requirements installed successfully!")
+        return True
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Failed to install requirements: {e}")
+        return False
 
-# Read requirements
-requirements = []
-try:
-    with open('requirements.txt', 'r', encoding='utf-8') as f:
-        requirements = [line.strip() for line in f if line.strip() and not line.startswith('#')]
-except FileNotFoundError:
-    requirements = [
-        'requests>=2.25.1',
-        'pandas>=1.3.0',
-        'fpdf2>=2.5.0',
-        'urllib3>=1.26.0',
-        'openpyxl>=3.0.0'
+def build_executable():
+    """Build executable using PyInstaller"""
+    print("🏗️ Building executable...")
+    
+    # Build GUI version
+    gui_cmd = [
+        sys.executable, '-m', 'PyInstaller',
+        '--onefile',
+        '--windowed',
+        '--name=ReconShadow_GUI',
+        '--icon=NONE',
+        'reconshadow_gui.py'
     ]
+    
+    # Build CLI version
+    cli_cmd = [
+        sys.executable, '-m', 'PyInstaller',
+        '--onefile',
+        '--console',
+        '--name=ReconShadow_CLI',
+        '--icon=NONE',
+        'reconshadow.py'
+    ]
+    
+    try:
+        print("Building GUI version...")
+        subprocess.check_call(gui_cmd)
+        
+        print("Building CLI version...")
+        subprocess.check_call(cli_cmd)
+        
+        print("✅ Executables built successfully!")
+        return True
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Build failed: {e}")
+        return False
 
-setup(
-    name="reconshadow",
-    version="4.0.0",
-    author="N0ctyx",
-    author_email="n0ctyx@example.com",  # Replace with actual email
-    description="Stealth Reconnaissance & Vulnerability Discovery Tool for Bug Bounty",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    url="https://github.com/n0ctyx/reconshadow",  # Replace with actual URL
-    project_urls={
-        "Bug Reports": "https://github.com/n0ctyx/reconshadow/issues",
-        "Source": "https://github.com/n0ctyx/reconshadow",
-        "Documentation": "https://github.com/n0ctyx/reconshadow#readme",
-    },
-    packages=find_packages(),
-    py_modules=["reconshadow"],
-    classifiers=[
-        "Development Status :: 5 - Production/Stable",
-        "Intended Audience :: Information Technology",
-        "Intended Audience :: System Administrators",
-        "Intended Audience :: Developers",
-        "Topic :: Security",
-        "Topic :: Internet :: WWW/HTTP",
-        "Topic :: System :: Networking",
-        "License :: OSI Approved :: MIT License",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
-        "Programming Language :: Python :: 3.11",
-        "Operating System :: OS Independent",
-        "Operating System :: Microsoft :: Windows",
-        "Operating System :: POSIX :: Linux",
-        "Operating System :: MacOS",
-    ],
-    keywords=[
-        "security", "reconnaissance", "subdomain", "enumeration", 
-        "vulnerability", "scanner", "bug-bounty", "penetration-testing",
-        "dns", "port-scanner", "web-crawler", "cybersecurity"
-    ],
-    python_requires=">=3.7",
-    install_requires=requirements,
-    extras_require={
-        "dev": [
-            "pytest>=6.0",
-            "pytest-cov>=2.0",
-            "black>=21.0",
-            "flake8>=3.8",
-            "mypy>=0.800",
-        ],
-        "docs": [
-            "sphinx>=4.0",
-            "sphinx-rtd-theme>=0.5",
-        ],
-    },
-    entry_points={
-        "console_scripts": [
-            "reconshadow=reconshadow:main",
-        ],
-    },
-    include_package_data=True,
-    package_data={
-        "": ["*.txt", "*.md", "*.rst"],
-    },
-    zip_safe=False,
-    platforms=["any"],
-    license="MIT",
-    test_suite="tests",
-)
+def create_distribution():
+    """Create distribution folder"""
+    print("📦 Creating distribution package...")
+    
+    dist_folder = Path("ReconShadow_v4.0_Distribution")
+    if dist_folder.exists():
+        shutil.rmtree(dist_folder)
+    
+    dist_folder.mkdir()
+    
+    # Copy executables
+    gui_exe = Path("dist/ReconShadow_GUI.exe")
+    cli_exe = Path("dist/ReconShadow_CLI.exe")
+    
+    if gui_exe.exists():
+        shutil.copy2(gui_exe, dist_folder / "ReconShadow_GUI.exe")
+        print("✅ Copied GUI executable")
+    
+    if cli_exe.exists():
+        shutil.copy2(cli_exe, dist_folder / "ReconShadow_CLI.exe")
+        print("✅ Copied CLI executable")
+    
+    # Create launcher batch files
+    gui_batch = """@echo off
+title ReconShadow v4.0 - GUI Edition
+echo Starting ReconShadow GUI...
+ReconShadow_GUI.exe
+pause"""
+    
+    cli_batch = """@echo off
+title ReconShadow v4.0 - CLI Edition
+echo Starting ReconShadow CLI...
+ReconShadow_CLI.exe
+pause"""
+    
+    with open(dist_folder / "Launch_GUI.bat", "w") as f:
+        f.write(gui_batch)
+    
+    with open(dist_folder / "Launch_CLI.bat", "w") as f:
+        f.write(cli_batch)
+    
+    # Create README
+    readme_content = """# ReconShadow v4.0 - Distribution Package
+
+## Quick Start
+1. Double-click `Launch_GUI.bat` for the graphical interface
+2. Double-click `Launch_CLI.bat` for the command-line interface
+3. Or run the executables directly:
+   - `ReconShadow_GUI.exe` - Modern GUI version
+   - `ReconShadow_CLI.exe` - Traditional CLI version
+
+## Features
+- Subdomain enumeration
+- DNS record analysis
+- Port scanning
+- Vulnerability detection
+- Comprehensive reporting
+
+## System Requirements
+- Windows 10 or later
+- Internet connection
+- Administrator privileges (recommended)
+
+## Legal Notice
+This tool is for educational and authorized testing purposes only.
+Users are responsible for complying with applicable laws and regulations.
+
+## Support
+GitHub: https://github.com/n0ctyx/reconshadow
+
+---
+Made with ❤️ in Tunisia by N0ctyx 🇹🇳
+"""
+    
+    with open(dist_folder / "README.txt", "w", encoding="utf-8") as f:
+        f.write(readme_content)
+    
+    print(f"✅ Distribution package created: {dist_folder}")
+    return True
+
+def cleanup():
+    """Clean up build artifacts"""
+    print("🧹 Cleaning up...")
+    
+    cleanup_items = ["build", "dist", "__pycache__", "*.spec"]
+    
+    for item in cleanup_items:
+        if item.endswith("*"):
+            import glob
+            for file in glob.glob(item):
+                try:
+                    os.remove(file)
+                except:
+                    pass
+        else:
+            path = Path(item)
+            if path.exists():
+                if path.is_dir():
+                    shutil.rmtree(path)
+                else:
+                    path.unlink()
+    
+    print("✅ Cleanup completed")
+
+def main():
+    """Main setup process"""
+    print("🚀 ReconShadow v4.0 - Automated Setup")
+    print("=" * 50)
+    
+    # Check if we have the required files
+    required_files = ["reconshadow.py", "reconshadow_gui.py", "requirements.txt"]
+    for file in required_files:
+        if not Path(file).exists():
+            print(f"❌ Required file missing: {file}")
+            return False
+    
+    # Step 1: Install requirements
+    if not install_requirements():
+        return False
+    
+    # Step 2: Build executables
+    if not build_executable():
+        return False
+    
+    # Step 3: Create distribution
+    if not create_distribution():
+        return False
+    
+    # Step 4: Cleanup
+    cleanup()
+    
+    print("\n🎉 Setup completed successfully!")
+    print("📦 Your distribution package is ready in 'ReconShadow_v4.0_Distribution' folder")
+    print("🚀 You can now share this folder with others for easy installation")
+    
+    return True
+
+if __name__ == "__main__":
+    try:
+        success = main()
+        if not success:
+            input("\n❌ Setup failed. Press Enter to exit...")
+        else:
+            input("\n✅ Setup completed. Press Enter to exit...")
+    except KeyboardInterrupt:
+        print("\n\n⏹️ Setup interrupted by user.")
+    except Exception as e:
+        print(f"\n❌ Unexpected error: {e}")
+        input("Press Enter to exit...")
