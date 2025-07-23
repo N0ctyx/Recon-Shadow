@@ -9,7 +9,7 @@ ReconShadow v4.1 Enhanced is a comprehensive reconnaissance and vulnerability di
 - Vulnerability Scanning
 - Port Scanning
 - URL Crawling
-- **NEW: Subdomain Takeover Detection**
+- coming soon: Subdomain Takeover Detection**
 
 ## Installation
 ```bash
