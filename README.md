@@ -22,17 +22,9 @@ python reconshadow.py
 ## Usage
 1. Run: `python reconshadow.py`
 2. Enter target domain
-3. Choose from menu options:
-   - Option 1: Subdomain Enumeration
-   - Option 6: Subdomain Takeover Scan (NEW)
-   - Option 7: Generate Reports
+1. Start Subdomain Enumeration
+2. Perform DNS Scan                                                                                                                                                 3. Perform Vulnerability Scan                                                                                                                                       4. Perform Port Scan                                                                                                                                                5. Start Enhanced URL Crawl                                                                                                                                         6. Generate Text Report                                                                                                                                             7. Generate Comprehensive Report (Separate Files)                                                                                                                   8. Exit                                        
 
-## Subdomain Takeover Detection
-Detects potential takeover vulnerabilities for:
-- GitHub Pages
-- Heroku Applications
-- AWS S3 Buckets
-- Shopify Stores
 
 ## Legal Disclaimer
 FOR ETHICAL USE ONLY - Authorized testing and bug bounty programs only.
